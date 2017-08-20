@@ -87,12 +87,6 @@ let private fetchYoutube (apiKey, channelId) (context : HttpContext) =
             return! json videos context
     }
 
-open Nikeza.Server.Wordpress
-let private fetchWordpress (feedUrl) (context : HttpContext) =
-    async { let! response = jsonRssFeed feedUrl
-            return! json response context
-    }
-
 let private fetchPlatforms (providerId) (context : HttpContext) =
     async { let response = getPlatforms()
             return! json response context
@@ -136,7 +130,6 @@ let webApp : HttpContext -> HttpHandlerResult =
                 route "/" >=> htmlFile "/home.html"
                 routef "/platforms/%s/%s"    fetchPlatforms
                 routef "/youtube/%s/%s"      fetchYoutube
-                routef "/wordpress/%s"       fetchWordpress
                 routef "/links/%s"           fetchLinks
                 routef "/followers/%s"       fetchFollowers
                 routef "/subscriptions/%s"   fetchSubscriptions

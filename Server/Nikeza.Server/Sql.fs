@@ -137,3 +137,21 @@ let getSourcesSql = @"SELECT ProfileId,
                       WHERE  ProfileId = @ProfileId"
 
 let getPlatformsSql = @"SELECT Name FROM Platform"
+
+// Wordpress
+
+// Query that is performed for every item in a wordpress feed
+// when the feed is pulled from source
+// Untested
+let addWordpressFeedItemSql = @"INSERT INTO [dbo].[Wordpress]
+                          (Title,
+                           Link,
+                           Description,
+                           ProviderId
+                           )
+                    VALUES
+                          (@Title,
+                           @Link,
+                           @Description,
+                           @ProviderId
+                          )"

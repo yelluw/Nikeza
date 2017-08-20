@@ -117,6 +117,17 @@ let private removeSource (info:RemoveSourceRequest) =
         
     Store.execute connectionString deleteSourceSql commandFunc
 
+// Wordpress
+let private insertFeedItem (info:RssItem, providerId:int) =
+    let commandFunc (command: SqlCommand) = 
+        command |> addWithValue "@Title"         info.title
+                |> addWithValue "@Link"          info.link
+                |> addWithValue "@Email"         info.description
+                |> addWithValue "@ProviderId"    providerId
+
+    Store.execute connectionString addWordpressFeedItemSql commandFunc
+
+
 let getResults sql commandFunc readInData =
     let (reader, connection) = Store.query connectionString sql commandFunc
     
